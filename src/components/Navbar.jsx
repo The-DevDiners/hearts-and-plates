@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
-import { Menu, Phone, Mail, MapPin, Clock, LineChart } from "lucide-react";
+import { Menu, Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { MdShoppingCart } from "react-icons/md"; // Correct import from react-icons
+import { useCart } from "../components/contexts/CartContext"; // Import the CartContext hook
 
 export default function RestaurantNavbar() {
+  const { cart } = useCart(); // Access cart from context
   const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Handle scroll event to change navbar appearance
   useEffect(() => {
@@ -31,14 +35,12 @@ export default function RestaurantNavbar() {
       <div className="container mx-auto px-4 flex justify-between items-center h-16 text-sm border-b border-amber-200">
         <div className="flex items-center space-x-2">
           <MapPin size={16} className="text-amber-200" />
-          <span className="text-white">
-            Restaurant St, Plot No.7,Buro - Osu
-          </span>
+          <span className="text-white">Plot No.7, Buro - Osu</span>
         </div>
 
         <div className="hidden md:flex items-center space-x-2">
           <Clock size={16} className="text-amber-200" />
-          <span className="text-white">Daily : 8:00 am to 10:00 pm</span>
+          <span className="text-white">Daily: 8:00 am to 10:00 pm</span>
         </div>
 
         <div className="flex items-center space-x-6">
@@ -51,6 +53,16 @@ export default function RestaurantNavbar() {
             <Mail size={16} className="text-amber-200" />
             <span className="text-white">booking@restaurant.com</span>
           </div>
+
+          {/* Cart Icon */}
+          <div className="relative">
+            <Link to="/cart" className="relative">
+              <MdShoppingCart size={24} className="text-amber-200" />
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2 py-1">
+                {cart.length} {/* Display the number of items in the cart */}
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -61,7 +73,11 @@ export default function RestaurantNavbar() {
         }`}
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <button className="md:hidden text-white">
+          {/* Mobile Hamburger Menu */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden text-white"
+          >
             <Menu size={24} />
           </button>
 
@@ -81,31 +97,83 @@ export default function RestaurantNavbar() {
             </div>
           </div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:block">
-  <ul className="flex space-x-8 font-light text-white">
-    <li>
-      <Link to="/" className="hover:text-amber-200 cursor-pointer">Home</Link>
-    </li>
-    <li>
-      <Link to="/menu" className="hover:text-amber-200 cursor-pointer">Menu</Link>
-    </li>
-    <li>
-      <Link to="/about" className="hover:text-amber-200 cursor-pointer">About</Link>
-    </li>
-    <li>
-      <Link to="/gallery" className="hover:text-amber-200 cursor-pointer">Gallery</Link>
-    </li>
-    <li>
-      <Link to="/contact" className="hover:text-amber-200 cursor-pointer">Contact</Link>
-    </li>
-  </ul>
-</div>
+            <ul className="flex space-x-8 font-light text-white">
+              <li>
+                <Link to="/" className="hover:text-amber-200 cursor-pointer">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/menu" className="hover:text-amber-200 cursor-pointer">
+                  Menu
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-amber-200 cursor-pointer">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/gallery" className="hover:text-amber-200 cursor-pointer">
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-amber-200 cursor-pointer">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-          <button className="bg-amber-200 text-black px-6 py-3 font-medium hover:bg-amber-300 transition duration-300">
-            FIND A TABLE
-          </button>
+          {/* Table Reservation Button */}
+          <Link to="/reserve">
+            <button className="bg-amber-200 text-black px-6 py-3 font-medium hover:bg-amber-300 transition duration-300">
+              FIND A TABLE
+            </button>
+          </Link>
         </div>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-black text-white py-4 px-6">
+          <ul className="space-y-4">
+            <li>
+              <Link to="/" className="hover:text-amber-200">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/menu" className="hover:text-amber-200">
+                Menu
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="hover:text-amber-200">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link to="/gallery" className="hover:text-amber-200">
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-amber-200">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link to="/reserve" className="hover:text-amber-200">
+                FIND A TABLE
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
 }
