@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import breakfastImg from "../assets/images/breakfast.jpg"
-import tacosImg from "../assets/images/tacos.png"
-import drinksImg from "../assets/images/drinks.png"
+import breakfastImg from "../assets/images/breakfast.jpg";
+import tacosImg from "../assets/images/tacos.png";
+import drinksImg from "../assets/images/drinks.png";
+import { Link } from "react-router-dom";
 
 export default function RestaurantHomepage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -112,9 +113,11 @@ export default function RestaurantHomepage() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mt-12 mb-16 w-full">
               {/* View Our Menu */}
               <div className="flex justify-center md:flex-1">
-                <button className="border border-amber-200 text-amber-200 px-8 py-3 min-w-48 hover:bg-amber-200 hover:text-black transition duration-300 tracking-widest uppercase">
-                  VIEW OUR MENU
-                </button>
+                <Link to="/menu">
+                  <button className="border border-amber-200 text-amber-200 px-8 py-3 min-w-48 hover:bg-amber-200 hover:text-black transition duration-300 tracking-widest uppercase">
+                    VIEW OUR MENU
+                  </button>
+                </Link>
               </div>
 
               {/* Book a Table */}
@@ -143,12 +146,12 @@ export default function RestaurantHomepage() {
                       </svg>
                     </div>
                     <div className="text-black text-center font-medium">
-                      <div className="text-sm uppercase tracking-widest">
-                        BOOK A
-                      </div>
-                      <div className="text-sm uppercase tracking-widest">
-                        TABLE
-                      </div>
+                      <Link to="/reserve">
+                        <button className="text-sm uppercase tracking-widest bg-transparent border-none p-0 m-0">
+                          <div>BOOK A</div>
+                          <div>TABLE</div>
+                        </button>
+                      </Link>
                     </div>
                   </div>
                   <div className="absolute inset-0 -z-10 transform rotate-45 border border-amber-200 scale-110"></div>
@@ -191,8 +194,6 @@ export default function RestaurantHomepage() {
       </main>
 
       <div className="bg-black text-white py-24 relative overflow-hidden">
-        
-
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-16 max-w-2xl mx-auto">

@@ -47,7 +47,7 @@ export default function Footer() {
           <div className="space-y-3 text-gray-400 mb-8">
             <p>Restaurant St, Plot No.7,Buro - Osu</p>
             <p>booking@domainname.com</p>
-            <p>Booking Request : +88-123-123456</p>
+            <p>Booking Request : +233-23-123456</p>
             <p>Open : 09:00 am - 01:00 pm</p>
           </div>
           

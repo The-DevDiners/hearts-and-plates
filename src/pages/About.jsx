@@ -2,6 +2,9 @@ import React from 'react';
 import RestaurantNavbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ChefHatIcon } from 'lucide-react';
+import signatureImg from '../assets/images/signature.png'
+import heroImg from '../assets/images/hero5.png'
+import chefImg from '../assets/images/chef4.png'
 
 
 const AboutUs = () => {
@@ -52,7 +55,7 @@ const AboutUs = () => {
               </div>
               
               <p className="text-gray-400 mb-6">
-                Founded in 1998, Delici Restaurant has been serving the city of London with authentic culinary experiences that blend traditional recipes with modern innovation. What started as a small family kitchen has now grown into one of the most respected establishments in the culinary world.
+                Founded in 2010, Hearts & Plates Restaurant has been serving the city of Accra with authentic culinary experiences that blend traditional recipes with modern innovation. What started as a small family kitchen has now grown into one of the most respected establishments in the culinary world.
               </p>
               
               <p className="text-gray-400 mb-6">
@@ -82,7 +85,7 @@ const AboutUs = () => {
               </div>
               
               <div className="flex items-center mb-4">
-                <img src="/assets/images/signature.png" alt="Signature" className="h-16" />
+                <img src= {signatureImg} alt="Signature" className="h-16" />
                 <div className="ml-4">
                   <h4 className="text-white text-lg">Jonathan Smith</h4>
                   <p className="text-amber-200 text-sm">Master Chef</p>
@@ -93,14 +96,14 @@ const AboutUs = () => {
             {/* Right Side - Images */}
             <div className="relative">
               <div className="aspect-[3/4] relative z-10">
-                <img src="/assets/images/about-main.jpg" alt="Restaurant interior" className="w-full h-full object-cover" />
+               
               </div>
               <div className="absolute w-2/3 aspect-square bottom-12 -left-12 z-0 border-8 border-amber-200/20">
-                <img src="/assets/images/about-small.jpg" alt="Chef cooking" className="w-full h-full object-cover" />
+                <img src={chefImg} alt="Chef cooking" className="w-full h-full object-cover" />
               </div>
               <div className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 bg-amber-200 text-black p-4 z-20">
                 <div className="text-center">
-                  <div className="text-4xl font-bold">25</div>
+                  <div className="text-4xl font-bold">15</div>
                   <div className="text-sm uppercase tracking-wider">Years of Experience</div>
                 </div>
               </div>
