@@ -1,70 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import RestaurantNavbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const OrderConfirmationPage = () => {
-  const [order, setOrder] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedOrder = JSON.parse(localStorage.getItem("latestOrder")) || [];
-    setOrder(storedOrder);
-  }, []);
-
-  // Calculate the total price
-  const calculateTotal = () => {
-    return order.reduce((total, item) => total + parseFloat(item.price), 0);
-  };
-
   return (
-    <section className="py-16 bg-black text-white min-h-screen">
-      <RestaurantNavbar />
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mt-30">Order Confirmation</h2>
+    <div className="order-confirmation min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-6">
+      <div className="max-w-3xl w-full bg-white rounded-lg shadow-2xl p-8">
+        <h1 className="text-4xl font-bold text-center text-green-600 mb-6">
+          Thank You for Your Order!
+        </h1>
 
-        <div className="mt-10">
-          <div className="bg-zinc-900 p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-semibold mb-6">Thank you for your order!</h3>
-            <p className="text-lg mb-4">
-              Your order has been successfully placed. Here are the details:
-            </p>
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-3">
+            Your payment was successful 🎉
+          </h2>
+          <p className="text-gray-600">
+            A confirmation email has been sent to you.
+          </p>
+        </div>
 
-            {/* Cart Summary */}
-            <div className="space-y-4">
-              {order.length > 0 ? (
-                order.map((item, index) => (
-                  <div key={index} className="flex justify-between border-b border-gray-700 pb-2">
-                    <div>
-                      <p className="text-lg font-semibold">{item.name}</p>
-                      <p className="text-sm text-gray-400">{item.description}</p>
-                    </div>
-                    <div className="text-lg font-semibold">${parseFloat(item.price).toFixed(2)}</div>
-                  </div>
-                ))
-              ) : (
-                <p>No order details found.</p>
-              )}
-            </div>
-
-            <div className="mt-6 flex justify-between font-semibold text-xl border-t border-gray-700 pt-4">
-              <span>Total</span>
-              <span>${calculateTotal().toFixed(2)}</span>
-            </div>
-
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => navigate("/")}
-                className="bg-yellow-400 text-black px-6 py-3 font-semibold rounded-md hover:bg-yellow-500 transition duration-300"
-              >
-                Back to Homepage
-              </button>
-            </div>
-          </div>
+        <div className="text-center">
+          <button
+            onClick={() => navigate('/')}
+            className="bg-green-600 hover:bg-green-700 transition text-white font-semibold py-3 px-8 rounded-full shadow-md"
+          >
+            Go Back to Home
+          </button>
         </div>
       </div>
-      <Footer />
-    </section>
+    </div>
   );
 };
 

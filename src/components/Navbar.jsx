@@ -106,13 +106,13 @@ export default function RestaurantNavbar() {
                 </Link>
               </li>
               <li>
-                <Link to="/menu" className="hover:text-amber-200 cursor-pointer">
-                  Menu
+                <Link to="/about" className="hover:text-amber-200 cursor-pointer">
+                  About
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-amber-200 cursor-pointer">
-                  About
+                <Link to="/menu" className="hover:text-amber-200 cursor-pointer">
+                  Menu
                 </Link>
               </li>
               <li>
@@ -129,9 +129,9 @@ export default function RestaurantNavbar() {
           </div>
 
           {/* Table Reservation Button */}
-          <Link to="/reserve">
+          <Link to="/login">
             <button className="bg-amber-200 text-black px-6 py-3 font-medium hover:bg-amber-300 transition duration-300">
-              FIND A TABLE
+              LOGIN
             </button>
           </Link>
         </div>
@@ -166,11 +166,7 @@ export default function RestaurantNavbar() {
                 Contact
               </Link>
             </li>
-            <li>
-              <Link to="/reserve" className="hover:text-amber-200">
-                FIND A TABLE
-              </Link>
-            </li>
+            
           </ul>
         </div>
       )}

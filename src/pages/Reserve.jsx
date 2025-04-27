@@ -1,9 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import reserveImg from "../assets/images/reserved.png";
 import RestaurantNavbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function ReservationPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    guests: "",
+    date: "",
+    time: "",
+    requests: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please login to make a reservation.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "https://jam-hearts-plates-h-and-p-restaurant.onrender.com/tables/reserve",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Reservation successful!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        guests: "",
+        date: "",
+        time: "",
+        requests: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Reservation failed. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-[#0f0f0f] text-white min-h-screen">
       <RestaurantNavbar />
@@ -61,16 +117,22 @@ export default function ReservationPage() {
           {/* Right: Form */}
           <div className="bg-[#1a1a1a] p-10 rounded-lg shadow-lg border border-gray-800">
             <h2 className="text-3xl font-serif mb-6">Reservation Form</h2>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your Name *"
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
                 />
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Email *"
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
@@ -79,34 +141,51 @@ export default function ReservationPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   placeholder="Phone *"
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
                 />
                 <select
+                  name="guests"
+                  value={formData.guests}
+                  onChange={handleChange}
                   required
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   <option value="">Number of Guests *</option>
                   {[...Array(7)].map((_, i) => (
-                    <option key={i + 1}>{i + 1} {i + 1 === 1 ? "Person" : "People"}</option>
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1} {i + 1 === 1 ? "Person" : "People"}
+                    </option>
                   ))}
-                  <option>7+ People</option>
+                  <option value="7+">7+ People</option>
                 </select>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
                 />
                 <input
                   type="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
                   className="bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
                 />
               </div>
               <textarea
+                name="requests"
+                value={formData.requests}
+                onChange={handleChange}
                 rows="4"
                 placeholder="Special Requests (Optional)"
                 className="w-full bg-[#2a2a2a] text-white px-5 py-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
